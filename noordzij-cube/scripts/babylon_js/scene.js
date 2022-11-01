@@ -3,9 +3,28 @@ const canvas = document.getElementById("renderCanvas"); // Get the canvas elemen
 const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engine
 
 const createScene = function () {
-    var scene = new BABYLON.Scene(engine);
-    scene.clearColor = new BABYLON.Color3(1, 1, 1);
-    scene.createDefaultCameraOrLight(true, true, true);
+    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+
+    // Enable mouse wheel inputs.
+    camera.inputs.addMouseWheel();
+
+    // Change the mouse wheel Y axis to controll the cameras height in the scene:
+    //camera.inputs.attached["mousewheel"].wheelYMoveRelative = BABYLON.Coordinate.Y;
+
+    // Revese the mouse wheel Y axis direction:
+    // camera.inputs.attached["mousewheel"].wheelPrecisionY = -1;
+
+    // This targets the camera to scene origin
+    camera.setTarget(BABYLON.Vector3.Zero());
+
+    // This attaches the camera to the canvas
+    camera.attachControl(true);
+
+    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+
+    // Default intensity is 1. Let's dim the light a small amount
+    light.intensity = 0.7;
     return scene;
 }
 const scene = createScene(); //Call the createScene function
@@ -30,31 +49,5 @@ let loadGLTF = function(scn, folder, file){
     assetsManager.load();
 };
 
-const isTargetIn = (startPosition, endPosition, target, camera) => {
-    // get the screen XY of the target, converted from its world coordinate
-    const targetScreenPosition = BABYLON.Vector3.Project(
-        target,
-        BABYLON.Matrix.IdentityReadOnly,
-        scene.getTransformMatrix(),
-        camera.viewport.toGlobal(
-            scene.getEngine().getRenderWidth(),
-            scene.getEngine().getRenderHeight()
-        )
-    )
 
-    const minX = Math.min(startPosition.x, endPosition.x)
-    const minY = Math.min(startPosition.y, endPosition.y)
-    const maxX = Math.max(startPosition.x, endPosition.x)
-    const maxY = Math.max(startPosition.y, endPosition.y)
-
-    // check if the target's screen XY is inside of the dragBox XY range or not
-    if (
-        targetScreenPosition.x >= minX &&
-        targetScreenPosition.x <= maxX &&
-        targetScreenPosition.y >= minY &&
-        targetScreenPosition.y <= maxY
-    ) {
-        return true
-    }
-    return false
-}
+new BABYLON.Vector3(0, 1, 0)
