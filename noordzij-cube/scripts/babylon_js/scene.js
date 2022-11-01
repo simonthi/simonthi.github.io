@@ -41,12 +41,10 @@ let loadGLTF = function(scn, folder, file){
     var assetsManager = new BABYLON.AssetsManager(scn);
     let meshTask = assetsManager.addMeshTask("glb task", "", folder, file);
     meshTask.onSuccess = function (task){
-        task.loadedMeshes[0].position = BABYLON.Vector3.Zero();
+        task.loadedMeshes[0].position = new BABYLON.Vector3(-4, 0, 0);
     }
     meshTask.onError = function(task, message, exception){
         console.log(message, exception);
     }
     assetsManager.load();
 };
-
-meshTask.position.x = -4;
