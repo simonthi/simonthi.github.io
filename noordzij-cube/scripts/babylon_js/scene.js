@@ -49,5 +49,4 @@ let loadGLTF = function(scn, folder, file){
     assetsManager.load();
 };
 
-
-new BABYLON.Vector3(0, 1, 0)
+meshTask.position.x = -4;
