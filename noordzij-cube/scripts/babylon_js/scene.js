@@ -29,3 +29,32 @@ let loadGLTF = function(scn, folder, file){
     }
     assetsManager.load();
 };
+
+const isTargetIn = (startPosition, endPosition, target, camera) => {
+    // get the screen XY of the target, converted from its world coordinate
+    const targetScreenPosition = BABYLON.Vector3.Project(
+        target,
+        BABYLON.Matrix.IdentityReadOnly,
+        scene.getTransformMatrix(),
+        camera.viewport.toGlobal(
+            scene.getEngine().getRenderWidth(),
+            scene.getEngine().getRenderHeight()
+        )
+    )
+
+    const minX = Math.min(startPosition.x, endPosition.x)
+    const minY = Math.min(startPosition.y, endPosition.y)
+    const maxX = Math.max(startPosition.x, endPosition.x)
+    const maxY = Math.max(startPosition.y, endPosition.y)
+
+    // check if the target's screen XY is inside of the dragBox XY range or not
+    if (
+        targetScreenPosition.x >= minX &&
+        targetScreenPosition.x <= maxX &&
+        targetScreenPosition.y >= minY &&
+        targetScreenPosition.y <= maxY
+    ) {
+        return true
+    }
+    return false
+}
