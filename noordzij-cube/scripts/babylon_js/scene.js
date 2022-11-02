@@ -4,6 +4,7 @@ const engine = new BABYLON.Engine(canvas, true); // Generate the BABYLON 3D engi
 
 const createScene = function () {
     var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+    camera.CameraType = ORTHOGRAPHIC;
 
     // Enable mouse wheel inputs.
     camera.inputs.addMouseWheel();
