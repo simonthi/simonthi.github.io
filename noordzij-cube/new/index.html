@@ -1,52 +1,105 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Default .gltf loading scene</title>
-    <meta charset="UTF-8" />
-    <!-- this link to the preview online version of BJS -->
-    <script src="https://preview.babylonjs.com/babylon.js"></script>
-    <!-- this is needed for BJS to load scene files -->
-    <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-    <style>
-      html,
-      body {
-        overflow: hidden;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+    <head>
+        <title>Default .gltf loading scene</title>
+        <meta charset="UTF-8" />
+        <!-- this link to the preview online version of BJS -->
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <!-- this is needed for BJS to load scene files -->
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <style>
+            html,
+            body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
 
-      #canvas {
-        width: 100%;
-        height: 100%;
-        touch-action: none;
-      }
-    </style>
-  </head>
+            #canvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+        </style>
+    </head>
 
-  <body>
-    <canvas id="canvas"></canvas>
-    <script type="text/javascript">
-      var canvas = document.getElementById("canvas");
-      var engine = new BABYLON.Engine(canvas, true);
+    <body>
+        <canvas id="canvas"></canvas>
+        <script type="text/javascript">
 
-      // here the doc for Load function: //doc.babylonjs.com/api/classes/babylon.sceneloader#load
-      BABYLON.SceneLoader.Load("", "Noordzij.glb", engine, function (scene) {
+
+
+            var canvas = document.getElementById("canvas");
+            var engine = new BABYLON.Engine(canvas, true);
+            var createScene = function () {     
+                var scene = new BABYLON.Scene(engine);
+                var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+                camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+                camera.minZ = 0.01;
+                camera.allowUpsideDown = false;
+                camera.wheelPrecision = 150;
+                camera.attachControl(canvas, true);
+                var ef, shaderBallGLTFRoot;
+
+                // Enable mouse wheel inputs.
+                camera.inputs.addMouseWheel();
+
+                // Change the mouse wheel Y axis to controll the cameras height in the scene:
+                //camera.inputs.attached["mousewheel"].wheelYMoveRelative = BABYLON.Coordinate.Y;
+
+                // Revese the mouse wheel Y axis direction:
+                // camera.inputs.attached["mousewheel"].wheelPrecisionY = -1;
+
+                // This targets the camera to scene origin
+                camera.setTarget(BABYLON.Vector3.Zero());
+
+                // This attaches the camera to the canvas
+                camera.attachControl(true);
+
+                // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+                var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 0, 0), scene);
+
+                // Default intensity is 1. Let's dim the light a small amount
+                light.intensity = 0.7;
+
+                BABYLON.SceneLoader.ImportMesh(
+                    "",
+                    "./",
+                    "Noordzij.glb",
+                    scene,function (scene){
+                        // selecting the mesh we will animate later on scene.registerBeforeRender()
+                        ef = scene.getMeshByUniqueId("267");
+                        // renaming the default gltf empty object "__root__" and adapting it to the scene
+                        shaderBallGLTFRoot = ef.parent;
+                        shaderBallGLTFRoot.name = "__shaderBall-root__";
+                        shaderBallGLTFRoot.scaling.scaleInPlace(5);
+                        shaderBallGLTFRoot.position.y = 1.6;
+                    });
+                return scene;
+            }
+            createScene();
+            // here the doc for Load function: //doc.babylonjs.com/api/classes/babylon.sceneloader#load
+            /* BABYLON.SceneLoader.Load("", "Noordzij.gltf", engine, function (scene) {
+
         scene.createDefaultCamera(true, true, true);
         scene.createDefaultEnvironment({
           createGround: false,
           createSkybox: false,
-        });
+        });*/
 
-        engine.runRenderLoop(function () {
-          scene.render();
-        });
+            const scene = createScene(); 
+            engine.runRenderLoop(function () {
+                scene.render();
+            });
 
-        window.addEventListener("resize", function () {
-          engine.resize();
-        });
-      });
-    </script>
-  </body>
+            window.addEventListener("resize", function () {
+                engine.resize();
+            });
+
+
+
+        </script>
+    </body>
 </html>
