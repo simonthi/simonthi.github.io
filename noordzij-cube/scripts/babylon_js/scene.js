@@ -16,7 +16,7 @@ const createScene = function () {
     // camera.inputs.attached["mousewheel"].wheelPrecisionY = -1;
 
     // This targets the camera to scene origin
-    camera.setTarget(new BABYLON.Vector3(0, 0, 0));
+    camera.setTarget(new BABYLON.Vector3(0, 4, 0));
 
     // This attaches the camera to the canvas
     camera.attachControl(true);
