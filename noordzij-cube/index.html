@@ -8,9 +8,9 @@
         <!-- this is needed for BJS to load scene files -->
         <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
         <script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
-        
+
         <meta property="og:image" content="/img/meta.png">
-        
+
         <style>
             html,
             body {
@@ -39,6 +39,7 @@
 
             var canvas = document.getElementById("canvas");
             var engine = new BABYLON.Engine(canvas, true);
+            /* Rendering for Retina screens x*/
             engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
 
             var createScene = async function () {     
@@ -54,9 +55,9 @@
 
                 // This attaches the camera to the canvas
                 camera.attachControl(true);
-                
+
                 /*
-                // Orthographic camera
+                // Orthographic camera In case this is needed at some point
                 camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
 
                 var zoomScale = 1;
@@ -78,8 +79,8 @@
                     camera.orthoRight = 100 * zoomScale;
                 }, BABYLON.PointerEventTypes.POINTERWHEEL);
                 */
-                
-                
+
+
                 /*Setup lighting*/
                 var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 10, 0), scene);
                 light.intensity = 0.3;
@@ -89,18 +90,23 @@
 
                 var redMat = new BABYLON.StandardMaterial("red", scene);
                 redMat.emissiveColor = new BABYLON.Color3(1,0,0);
+                redMat.alpha = 0.9;
 
                 var greenMat = new BABYLON.StandardMaterial("green", scene);
                 greenMat.emissiveColor = new BABYLON.Color3(0,1,0);
+                greenMat.alpha = 0.9;	
 
                 var blueMat = new BABYLON.StandardMaterial("blue", scene);
                 blueMat.emissiveColor = new BABYLON.Color3(0,0,1);
+                blueMat.alpha = 0.9;
 
                 var yellowMat = new BABYLON.StandardMaterial("yellow", scene);
                 yellowMat.emissiveColor = new BABYLON.Color3(1,1,0);
+                yellowMat.alpha = 0.9;
 
                 var lightblueMat = new BABYLON.StandardMaterial("lightblue", scene);
                 lightblueMat.emissiveColor = new BABYLON.Color3(0,1,1);
+                lightblueMat.alpha = 0.9;
 
                 const cube = await BABYLON.SceneLoader.ImportMeshAsync(
                     "",
@@ -141,7 +147,7 @@
                     return BABYLON.Tools.ToDegrees(value) | 0;
                 }
 
-                
+
                 /*Toggling visibility of layers*/
                 var toggleLayer1 = function(isChecked) {
                     if (isChecked) {
@@ -179,7 +185,7 @@
                         }
                     }
                 }
-                
+
                 var toggleLayer4 = function(isChecked) {
                     if (isChecked) {
                         for (i = 76 ; i < scene.meshes.length-25; i++){
@@ -204,8 +210,8 @@
                         }
                     }
                 }
-                
-                
+
+
                 /*Show only extreme corners*/
                 var showExtremes = function(isChecked) {
                     if (!isChecked) {
@@ -224,44 +230,48 @@
 
                 /* Adding Babylon.js GUI + adding styles*/
                 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
-                
 
+                
+                
+                
                 var selectBox = new BABYLON.GUI.SelectionPanel("sp");
                 selectBox.width = "440px";
-                selectBox.height = "640px";
+                selectBox.height = 0.5;
                 selectBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-                selectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+                selectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
 
                 advancedTexture.addControl(selectBox);
                 var style = advancedTexture.createStyle();
                 style.fontSize = 28;
-                style.fontFamily = "Verdana";
+                style.fontFamily = "monono";
                 style.textWrapping = true;
-                
+
                 selectBox.style = style;
+                
+                var introText = new BABYLON.GUI.TextBlock();
+                introText.addText = "Hello world";
 
                 var transformGroup = new BABYLON.GUI.CheckboxGroup("Toggle layers");
-	           transformGroup.addCheckbox("1", toggleLayer1);
+                transformGroup.addCheckbox("1", toggleLayer1);
                 transformGroup.addCheckbox("2", toggleLayer2);
                 transformGroup.addCheckbox("3", toggleLayer3);
                 transformGroup.addCheckbox("4", toggleLayer4);
                 transformGroup.addCheckbox("5", toggleLayer5);
                 transformGroup.style = style;
-                
-                
-                var extremesGroup = new BABYLON.GUI.CheckboxGroup("Show only extremes");
-	           extremesGroup.addCheckbox("Show only extremes", showExtremes);
-                
-                
-                var rotateGroup = new BABYLON.GUI.SliderGroup("Rotation of e’s", "S");
-                rotateGroup.addSlider("Angle", orientateY, "degs", 0, 2 * Math.PI, 0, displayValue); 
-                
-                
 
-                selectBox.addGroup(rotateGroup);
-                selectBox.addGroup(transformGroup);
-                selectBox.addGroup(extremesGroup);
+
+                var extremesGroup = new BABYLON.GUI.CheckboxGroup("Show only extremes");
+                extremesGroup.addCheckbox("On/Off", showExtremes);
+
+
+                var rotateGroup = new BABYLON.GUI.SliderGroup("Rotation of e’s", "S");
+                rotateGroup.addSlider("Angle", orientateY, "degs", 0, 2 * Math.PI, 0, displayValue);
                 
+                //selectBox.addGroup(introText, 0);
+                selectBox.addGroup(rotateGroup, 1);
+                selectBox.addGroup(transformGroup,2);
+                selectBox.addGroup(extremesGroup, 3);
+
 
                 return scene;
             }
