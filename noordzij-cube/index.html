@@ -1,13 +1,296 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>BJS basic template</title>
-    <script src="scripts/model3d.js"></script>
-</head>
-<body>
-    <model-3d background-color="#ffffff" src="models/Noordzij.glb"></model-3d>
-</body>
+<html>
+    <head>
+        <title>Default .gltf loading scene</title>
+        <meta charset="UTF-8" />
+        <!-- this link to the preview online version of BJS -->
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+        <!-- this is needed for BJS to load scene files -->
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
+        <style>
+            html,
+            body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                font-family: Verdana;
+            }
+
+            #canvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+                font-family: Verdana;
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="canvas"></canvas>
+        <script type="text/javascript">
+
+
+
+            var canvas = document.getElementById("canvas");
+            var engine = new BABYLON.Engine(canvas, true);
+
+            var createScene = async function () {     
+                var scene = new BABYLON.Scene(engine);
+                var camera =  new BABYLON.ArcRotateCamera("Camera",0, 0, 10, new BABYLON.Vector3(10, 10, 10), scene);
+                scene.activeCamera = camera;
+                // camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+                camera.inputs.addMouseWheel();
+
+                camera.inputs.attached["mousewheel"].wheelPrecisionY = -1;
+
+                camera.setTarget(new BABYLON.Vector3(-4, 4, -4));
+
+                // This attaches the camera to the canvas
+                camera.attachControl(true);
+                
+                /*
+                // Orthographic camera
+                camera.mode = BABYLON.Camera.ORTHOGRAPHIC_CAMERA;
+
+                var zoomScale = 1;
+                scene.onPointerObservable.add(p => {
+                    var event = p.event;
+                    let wheelDelta = 0;
+
+                    if (event.wheelDelta) {
+                        wheelDelta = event.wheelDelta;
+                    } else {
+                        wheelDelta = -(event.deltaY || event.detail) * 60;
+                    }
+
+                    zoomScale += wheelDelta / 5000;
+
+                    camera.orthoTop = 100 * zoomScale;
+                    camera.orthoBottom = -100 * zoomScale;
+                    camera.orthoLeft = -100 * zoomScale;
+                    camera.orthoRight = 100 * zoomScale;
+                }, BABYLON.PointerEventTypes.POINTERWHEEL);
+                */
+                
+                
+                /*Setup lighting*/
+                var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 10, 0), scene);
+                light.intensity = 0.3;
+
+                /* Setting up scene colors */
+                scene.clearColor = new BABYLON.Color3(1, 1, 1);
+
+                var redMat = new BABYLON.StandardMaterial("red", scene);
+                redMat.emissiveColor = new BABYLON.Color3(1,0,0);
+
+                var greenMat = new BABYLON.StandardMaterial("green", scene);
+                greenMat.emissiveColor = new BABYLON.Color3(0,1,0);
+
+                var blueMat = new BABYLON.StandardMaterial("blue", scene);
+                blueMat.emissiveColor = new BABYLON.Color3(0,0,1);
+
+                var yellowMat = new BABYLON.StandardMaterial("yellow", scene);
+                yellowMat.emissiveColor = new BABYLON.Color3(1,1,0);
+
+                var lightblueMat = new BABYLON.StandardMaterial("lightblue", scene);
+                lightblueMat.emissiveColor = new BABYLON.Color3(0,1,1);
+
+                const cube = await BABYLON.SceneLoader.ImportMeshAsync(
+                    "",
+                    "./",
+                    "Noordzij.glb",
+                    scene,function (scene){
+                    });
+
+
+
+                /*Setting the color of all e’s*/
+                var setColor = async function() {   
+                    for(i = 101 ; i < scene.meshes.length; i++){
+                        scene.meshes[i].material = redMat;   
+                    }
+                    for(i = 76 ; i < scene.meshes.length-25; i++){
+                        scene.meshes[i].material = greenMat;   
+                    }
+                    for(i = 51 ; i < scene.meshes.length-50; i++){
+                        scene.meshes[i].material = blueMat;   
+                    }
+                    for(i = 26 ; i < scene.meshes.length-75; i++){
+                        scene.meshes[i].material = yellowMat;   
+                    }
+                    for(i = 1; i < scene.meshes.length-100; i++){
+                        scene.meshes[i].material = lightblueMat;   
+                    }
+                }
+                await setColor();
+
+                /*Setting the orientation of all e’s*/
+                var orientateY = function(angle) {
+                    for(i = 1; i < scene.meshes.length; i++){
+                        scene.meshes[i].rotation = new BABYLON.Vector3(Math.PI/2, Math.PI/2 + angle, Math.PI/2);   
+                    }
+                }
+                var displayValue = function(value) {
+                    return BABYLON.Tools.ToDegrees(value) | 0;
+                }
+
+                
+                /*Toggling visibility of layers*/
+                var toggleLayer1 = function(isChecked) {
+                    if (isChecked) {
+                        for (i = 1 ; i < scene.meshes.length-100; i++){
+                            scene.meshes[i].setEnabled(true); 
+                        }
+                    }
+                    else {
+                        for (i = 1 ; i < scene.meshes.length-100; i++){
+                            scene.meshes[i].setEnabled(false); 
+                        }
+                    }
+                }
+                var toggleLayer2 = function(isChecked) {
+                    if (isChecked) {
+                        for (i = 26 ; i < scene.meshes.length-75; i++){
+                            scene.meshes[i].setEnabled(true); 
+                        }
+                    }
+                    else {
+                        for (i = 26 ; i < scene.meshes.length-75; i++){
+                            scene.meshes[i].setEnabled(false); 
+                        }
+                    }
+                }
+                var toggleLayer3 = function(isChecked) {
+                    if (isChecked) {
+                        for (i = 51 ; i < scene.meshes.length-50; i++){
+                            scene.meshes[i].setEnabled(true); 
+                        }
+                    }
+                    else {
+                        for (i = 51 ; i < scene.meshes.length-50; i++){
+                            scene.meshes[i].setEnabled(false); 
+                        }
+                    }
+                }
+                
+                var toggleLayer4 = function(isChecked) {
+                    if (isChecked) {
+                        for (i = 76 ; i < scene.meshes.length-25; i++){
+                            scene.meshes[i].setEnabled(true); 
+                        }
+                    }
+                    else {
+                        for (i = 76 ; i < scene.meshes.length-25; i++){
+                            scene.meshes[i].setEnabled(false); 
+                        }
+                    }
+                }
+                var toggleLayer5 = function(isChecked) {
+                    if (isChecked) {
+                        for (i = 101 ; i < scene.meshes.length; i++){
+                            scene.meshes[i].setEnabled(true); 
+                        }
+                    }
+                    else {
+                        for (i = 101 ; i < scene.meshes.length; i++){
+                            scene.meshes[i].setEnabled(false); 
+                        }
+                    }
+                }
+                
+                
+                /*Show only extreme corners*/
+                var showExtremes = function(isChecked) {
+                    if (!isChecked) {
+                        for (i = 1 ; i < scene.meshes.length; i++){
+                            scene.meshes[i].setEnabled(true); 
+                        }
+                    }
+                    else {
+                        for (i = 1 ; i < scene.meshes.length; i++){
+                            if(i!=2 && i!=3 && i!=19 && i!= 23 && i!= 102 && i!= 110 && i!=125 && i!= 124){
+                                scene.meshes[i].setEnabled(false); 
+                            }
+                        }
+                    }
+                }
+
+                /* Adding Babylon.js GUI + adding styles*/
+                var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+                
+
+                var selectBox = new BABYLON.GUI.SelectionPanel("sp");
+                selectBox.width = "196px";
+                selectBox.height = "420px";
+                selectBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
+                selectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+
+                advancedTexture.addControl(selectBox);
+                var style = advancedTexture.createStyle();
+                style.fontSize = 24;
+                style.fontStyle = "italic";
+                style.fontFamily = "Verdana";
+
+
+                var transformGroup = new BABYLON.GUI.CheckboxGroup("Toggle layers");
+	           transformGroup.addCheckbox("1", toggleLayer1);
+                transformGroup.addCheckbox("2", toggleLayer2);
+                transformGroup.addCheckbox("3", toggleLayer3);
+                transformGroup.addCheckbox("4", toggleLayer4);
+                transformGroup.addCheckbox("5", toggleLayer5);
+                transformGroup.style = style;
+                
+                
+                var extremesGroup = new BABYLON.GUI.CheckboxGroup("Show only extremes");
+	           extremesGroup.addCheckbox("Show only extremes", showExtremes);
+                extremesGroup.style = style;
+                
+                
+                var rotateGroup = new BABYLON.GUI.SliderGroup("Rotation of e’s", "S");
+                rotateGroup.addSlider("Angle", orientateY, "degs", 0, 2 * Math.PI, 0, displayValue); 
+                rotateGroup.style = style;
+                
+                
+
+                selectBox.addGroup(rotateGroup);
+                selectBox.addGroup(transformGroup);
+                selectBox.addGroup(extremesGroup);
+                
+
+                return scene;
+            }
+
+
+
+
+            // here the doc for Load function: //doc.babylonjs.com/api/classes/babylon.sceneloader#load
+            /* BABYLON.SceneLoader.Load("", "Noordzij.gltf", engine, function (scene) {
+
+        scene.createDefaultCamera(true, true, true);
+        scene.createDefaultEnvironment({
+          createGround: false,
+          createSkybox: false,
+        });*/
+
+            var start = async function() {
+                scene = await createScene();
+                engine.runRenderLoop(async function () {
+                    scene.render();
+                });
+            }
+
+            start();
+
+
+
+            window.addEventListener("resize", function () {
+                engine.resize();
+            });
+
+
+        </script>
+    </body>
 </html>
