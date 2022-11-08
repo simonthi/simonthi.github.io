@@ -227,17 +227,18 @@
                 
 
                 var selectBox = new BABYLON.GUI.SelectionPanel("sp");
-                selectBox.width = "360px";
-                selectBox.height = "560px";
+                selectBox.width = "440px";
+                selectBox.height = "640px";
                 selectBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 selectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
 
                 advancedTexture.addControl(selectBox);
                 var style = advancedTexture.createStyle();
-                style.fontSize = 48;
-                style.fontStyle = "italic";
+                style.fontSize = 28;
                 style.fontFamily = "Verdana";
-
+                style.textWrapping = true;
+                
+                selectBox.style = style;
 
                 var transformGroup = new BABYLON.GUI.CheckboxGroup("Toggle layers");
 	           transformGroup.addCheckbox("1", toggleLayer1);
@@ -250,12 +251,10 @@
                 
                 var extremesGroup = new BABYLON.GUI.CheckboxGroup("Show only extremes");
 	           extremesGroup.addCheckbox("Show only extremes", showExtremes);
-                console.log(extremesGroup);
                 
                 
                 var rotateGroup = new BABYLON.GUI.SliderGroup("Rotation of e’s", "S");
                 rotateGroup.addSlider("Angle", orientateY, "degs", 0, 2 * Math.PI, 0, displayValue); 
-                rotateGroup.style = style;
                 
                 
 
