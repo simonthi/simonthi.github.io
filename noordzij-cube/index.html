@@ -39,6 +39,7 @@
 
             var canvas = document.getElementById("canvas");
             var engine = new BABYLON.Engine(canvas, true);
+            engine.setHardwareScalingLevel(1 / window.devicePixelRatio);
 
             var createScene = async function () {     
                 var scene = new BABYLON.Scene(engine);
@@ -226,14 +227,14 @@
                 
 
                 var selectBox = new BABYLON.GUI.SelectionPanel("sp");
-                selectBox.width = "196px";
-                selectBox.height = "420px";
+                selectBox.width = "360px";
+                selectBox.height = "560px";
                 selectBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
                 selectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
 
                 advancedTexture.addControl(selectBox);
                 var style = advancedTexture.createStyle();
-                style.fontSize = 24;
+                style.fontSize = 48;
                 style.fontStyle = "italic";
                 style.fontFamily = "Verdana";
 
@@ -249,7 +250,7 @@
                 
                 var extremesGroup = new BABYLON.GUI.CheckboxGroup("Show only extremes");
 	           extremesGroup.addCheckbox("Show only extremes", showExtremes);
-                extremesGroup.style = style;
+                console.log(extremesGroup);
                 
                 
                 var rotateGroup = new BABYLON.GUI.SliderGroup("Rotation of e’s", "S");
