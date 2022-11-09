@@ -44,6 +44,7 @@ h1 {
     font-size: 28px;
     line-height: 28px;
     margin: 0;
+    font-weight: regular;
 }
 
 .visible {
