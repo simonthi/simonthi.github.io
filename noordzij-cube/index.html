@@ -3,9 +3,9 @@
     <head>
         <title>3D Noordzij Cube</title>
         <meta charset="UTF-8" />
-        <link rel="preload" href="/fonts/monono-Regular.woff2" as="font" type="font/woff2" crossorigin>
-        <link rel="stylesheet" href="/css/style.css">
-        <script src="/js/main.js"></script>
+        <link rel="preload" href="fonts/monono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="css/style.css">
+        <script src="js/main.js"></script>
         <!-- this link to the preview online version of BJS -->
         <script src="https://preview.babylonjs.com/babylon.js"></script>
         <!-- this is needed for BJS to load scene files -->
@@ -215,6 +215,7 @@
                         for (i = 1 ; i < scene.meshes.length; i++){
                             scene.meshes[i].setEnabled(true); 
                         }
+                        console.log(transformGroup);
                     }
                     else {
                         for (i = 1 ; i < scene.meshes.length; i++){
@@ -253,22 +254,22 @@
 
                 
                 var transformGroup = new BABYLON.GUI.CheckboxGroup("Toggle layers");
-                transformGroup.addCheckbox("1", toggleLayer1, true);
+                transformGroup.addCheckbox(" 1", toggleLayer1, true);
                 transformGroup.selectors[0].color = "lightblue";
-                transformGroup.addCheckbox("2", toggleLayer2, true);
+                transformGroup.addCheckbox(" 2", toggleLayer2, true);
                 transformGroup.selectors[1].color = "yellow";
-                transformGroup.addCheckbox("3", toggleLayer3, true);
+                transformGroup.addCheckbox(" 3", toggleLayer3, true);
                 transformGroup.selectors[2].color = "blue";
-                transformGroup.addCheckbox("4", toggleLayer4, true);
+                transformGroup.addCheckbox(" 4", toggleLayer4, true);
                 transformGroup.selectors[3].color = "green";
-                transformGroup.addCheckbox("5", toggleLayer5, true);
+                transformGroup.addCheckbox(" 5", toggleLayer5, true);
                 transformGroup.selectors[4].color = "red";
                 transformGroup.style = style;
 
               
 
                 var extremesGroup = new BABYLON.GUI.CheckboxGroup("Show only extremes");
-                extremesGroup.addCheckbox("On/Off", showExtremes);
+                extremesGroup.addCheckbox(" On/Off", showExtremes);
 
 
                 var rotateGroup = new BABYLON.GUI.SliderGroup("Rotation of e’s", "S");
