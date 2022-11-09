@@ -33,7 +33,9 @@
         <script type="text/javascript">
             
             
-            
+            document.fonts.ready.then(function(font_face_set) {
+
+
             var canvas = document.getElementById("canvas");
             var engine = new BABYLON.Engine(canvas, true);
             /* Rendering for Retina screens x*/
@@ -284,7 +286,7 @@
                 return scene;
             }
 
-
+            });
 
 
             // here the doc for Load function: //doc.babylonjs.com/api/classes/babylon.sceneloader#load
