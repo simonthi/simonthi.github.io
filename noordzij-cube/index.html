@@ -3,6 +3,7 @@
     <head>
         <title>3D Noordzij Cube</title>
         <meta charset="UTF-8" />
+        <link rel="preload" href="/fonts/monono-Regular.woff2" as="font" type="font/woff2" crossorigin>
         <!-- this link to the preview online version of BJS -->
         <script src="https://preview.babylonjs.com/babylon.js"></script>
         <!-- this is needed for BJS to load scene files -->
@@ -12,6 +13,10 @@
         <meta property="og:image" content="/img/meta.png">
 
         <style>
+            @font-face {
+                font-family: monono;
+                src: url(/fonts/monono-Regular.woff2);
+            }
             html,
             body {
                 overflow: hidden;
@@ -19,7 +24,8 @@
                 height: 100%;
                 margin: 0;
                 padding: 0;
-                font-family: Verdana;
+                font-family: monono;
+                font-size: 28px;
             }
 
             #canvas {
@@ -28,15 +34,75 @@
                 touch-action: none;
                 font-family: "Verdana";
             }
+            .info {
+                position: absolute;
+                bottom: 24px;
+                right: 12px;
+                font-family: monono;
+                font-size: 28px;
+            }
+            
+            #infoPopover {
+                visibility: hidden;
+                position: absolute;
+                background-color: white;
+                bottom: 96px;
+                width: 480px;
+                right: 12px;
+                font-family: monono;
+                font-size: 14px;
+                padding-left: 24px;
+                padding-right: 24px;
+                padding-top: 12px;
+            }
+            h1 {
+                font-size: 28px;
+                line-height: 28px;
+                margin: 0;
+            }
+            
+            .visible {
+                visibility:visible !important;
+            }
+            
+            button {
+                background-color: white;
+                box-shadow: none;
+                border: 1px solid black;
+                padding: 8px 16px;
+            }
+            a{
+                color: inherit;
+            }
         </style>
     </head>
 
     <body>
         <canvas id="canvas"></canvas>
+
+        <button class="info" onclick="togglePopover()">Info</button>
+        <div id="infoPopover" class="" role="dialog">
+            <div>
+                <h1>The Noordzij Cube in 3D</h1>
+                <p>Finnaly, the backside of the Noordzij cube is visible. Have a look around. Play with the layers, the orientation of the e’s and spin the cube in all directions. Have fun!
+                <br><br>
+                    Made by <a href="https://simonthiefes.de" target="_blank">Simon Thiefes</a> for the students @HAW Hamburg. 
+                </p>
+            </div>
+        </div>
+
+        <script>
+        function togglePopover() {
+                var popup = document.getElementById("infoPopover");
+                popup.classList.toggle("visible");
+            }
+        </script>
         <script type="text/javascript">
 
 
-
+            
+            
+            
             var canvas = document.getElementById("canvas");
             var engine = new BABYLON.Engine(canvas, true);
             /* Rendering for Retina screens x*/
@@ -231,26 +297,35 @@
                 /* Adding Babylon.js GUI + adding styles*/
                 var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
-                
-                
-                
+
+
+
                 var selectBox = new BABYLON.GUI.SelectionPanel("sp");
                 selectBox.width = "440px";
-                selectBox.height = 0.5;
+                selectBox.height = "480px";
                 selectBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_LEFT;
-                selectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+                selectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+                selectBox.left = "12px";
+                selectBox.bottom = "24px";
 
                 advancedTexture.addControl(selectBox);
                 var style = advancedTexture.createStyle();
                 style.fontSize = 28;
                 style.fontFamily = "monono";
                 style.textWrapping = true;
+                style.textHorizontalAlignment = 0;
+                style.textVerticalAlignment = 0;
+                style.resizeToFit = true;
 
                 selectBox.style = style;
-                
-                var introText = new BABYLON.GUI.TextBlock();
-                introText.addText = "Hello world";
 
+                var introText = new BABYLON.GUI.TextBlock();
+                introText.text = "Hello world";
+                introText.style = style;
+
+                
+                var controlGroup = new BABYLON.GUI.SliderGroup("Controls:", "S");
+                
                 var transformGroup = new BABYLON.GUI.CheckboxGroup("Toggle layers");
                 transformGroup.addCheckbox("1", toggleLayer1);
                 transformGroup.addCheckbox("2", toggleLayer2);
@@ -266,8 +341,8 @@
 
                 var rotateGroup = new BABYLON.GUI.SliderGroup("Rotation of e’s", "S");
                 rotateGroup.addSlider("Angle", orientateY, "degs", 0, 2 * Math.PI, 0, displayValue);
-                
-                //selectBox.addGroup(introText, 0);
+
+                selectBox.addGroup(controlGroup, 1);
                 selectBox.addGroup(rotateGroup, 1);
                 selectBox.addGroup(transformGroup,2);
                 selectBox.addGroup(extremesGroup, 3);
