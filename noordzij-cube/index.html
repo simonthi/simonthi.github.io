@@ -4,6 +4,8 @@
         <title>3D Noordzij Cube</title>
         <meta charset="UTF-8" />
         <link rel="preload" href="/fonts/monono-Regular.woff2" as="font" type="font/woff2" crossorigin>
+        <link rel="stylesheet" href="/css/style.css">
+        <script src="/js/main.js"></script>
         <!-- this link to the preview online version of BJS -->
         <script src="https://preview.babylonjs.com/babylon.js"></script>
         <!-- this is needed for BJS to load scene files -->
@@ -11,70 +13,6 @@
         <script src="https://cdn.babylonjs.com/gui/babylon.gui.js"></script>
 
         <meta property="og:image" content="/img/meta.png">
-
-        <style>
-            @font-face {
-                font-family: monono;
-                src: url(/fonts/monono-Regular.woff2);
-            }
-            html,
-            body {
-                overflow: hidden;
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                font-family: monono;
-                font-size: 28px;
-            }
-
-            #canvas {
-                width: 100%;
-                height: 100%;
-                touch-action: none;
-                font-family: "Verdana";
-            }
-            .info {
-                position: absolute;
-                bottom: 24px;
-                right: 12px;
-                font-family: monono;
-                font-size: 28px;
-            }
-            
-            #infoPopover {
-                visibility: hidden;
-                position: absolute;
-                background-color: white;
-                bottom: 96px;
-                width: 480px;
-                right: 12px;
-                font-family: monono;
-                font-size: 14px;
-                padding-left: 24px;
-                padding-right: 24px;
-                padding-top: 12px;
-            }
-            h1 {
-                font-size: 28px;
-                line-height: 28px;
-                margin: 0;
-            }
-            
-            .visible {
-                visibility:visible !important;
-            }
-            
-            button {
-                background-color: white;
-                box-shadow: none;
-                border: 1px solid black;
-                padding: 8px 16px;
-            }
-            a{
-                color: inherit;
-            }
-        </style>
     </head>
 
     <body>
@@ -91,15 +29,8 @@
             </div>
         </div>
 
-        <script>
-        function togglePopover() {
-                var popup = document.getElementById("infoPopover");
-                popup.classList.toggle("visible");
-            }
-        </script>
+        
         <script type="text/javascript">
-
-
             
             
             
@@ -176,7 +107,7 @@
 
                 const cube = await BABYLON.SceneLoader.ImportMeshAsync(
                     "",
-                    "./",
+                    "./models/",
                     "Noordzij.glb",
                     scene,function (scene){
                     });
@@ -319,21 +250,22 @@
 
                 selectBox.style = style;
 
-                var introText = new BABYLON.GUI.TextBlock();
-                introText.text = "Hello world";
-                introText.style = style;
 
-                
-                var controlGroup = new BABYLON.GUI.SliderGroup("Controls:", "S");
                 
                 var transformGroup = new BABYLON.GUI.CheckboxGroup("Toggle layers");
-                transformGroup.addCheckbox("1", toggleLayer1);
-                transformGroup.addCheckbox("2", toggleLayer2);
-                transformGroup.addCheckbox("3", toggleLayer3);
-                transformGroup.addCheckbox("4", toggleLayer4);
-                transformGroup.addCheckbox("5", toggleLayer5);
+                transformGroup.addCheckbox("1", toggleLayer1, true);
+                transformGroup.selectors[0].color = "lightblue";
+                transformGroup.addCheckbox("2", toggleLayer2, true);
+                transformGroup.selectors[1].color = "yellow";
+                transformGroup.addCheckbox("3", toggleLayer3, true);
+                transformGroup.selectors[2].color = "blue";
+                transformGroup.addCheckbox("4", toggleLayer4, true);
+                transformGroup.selectors[3].color = "green";
+                transformGroup.addCheckbox("5", toggleLayer5, true);
+                transformGroup.selectors[4].color = "red";
                 transformGroup.style = style;
 
+              
 
                 var extremesGroup = new BABYLON.GUI.CheckboxGroup("Show only extremes");
                 extremesGroup.addCheckbox("On/Off", showExtremes);
@@ -341,8 +273,8 @@
 
                 var rotateGroup = new BABYLON.GUI.SliderGroup("Rotation of e’s", "S");
                 rotateGroup.addSlider("Angle", orientateY, "degs", 0, 2 * Math.PI, 0, displayValue);
+                rotateGroup.isThumbCircle = true;
 
-                selectBox.addGroup(controlGroup, 1);
                 selectBox.addGroup(rotateGroup, 1);
                 selectBox.addGroup(transformGroup,2);
                 selectBox.addGroup(extremesGroup, 3);
