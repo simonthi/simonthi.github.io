@@ -33,7 +33,7 @@
         <script type="text/javascript">
             
             
-            document.fonts.ready.then(function(font_face_set) {
+            
 
 
             var canvas = document.getElementById("canvas");
@@ -286,7 +286,7 @@
                 return scene;
             }
 
-            });
+            
 
 
             // here the doc for Load function: //doc.babylonjs.com/api/classes/babylon.sceneloader#load
@@ -304,9 +304,9 @@
                     scene.render();
                 });
             }
-
+            document.fonts.ready.then(function(font_face_set) {
             start();
-
+});
 
 
             window.addEventListener("resize", function () {
