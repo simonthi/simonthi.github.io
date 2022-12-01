@@ -11,7 +11,7 @@
         <div id="z">z</div>
 
         <script type="text/javascript">
-           function  run(){
+            function  run(){
 
 
 
@@ -30,20 +30,14 @@
                                 // Do something awesome.
 
                                 document.getElementById("x").innerHTML = ""+x+"";
+                                document.getElementById("x").innerHTML = ""+y+"";
+                                document.getElementById("x").innerHTML = ""+z+"";
                             }
                             window.addEventListener("devicemotion", handleMotionEvent, true);
                         })
                     }
                 })
                     .catch(console.error)
-
-
-                document.getElementById("y").innerHTML = "yikes";
-                window.ondevicemotion = function(event) {
-                    document.getElementById("x").innerHTML = event.acceleration.x;
-                    document.getElementById("y").innerHTML = "y:" + `${event.acceleration.x} m/s2` + "";
-                    document.getElementById("z").innerHTML = "z:" + event.acceleration.z + "";
-                };
             }
         </script>
     </body>
