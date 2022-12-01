@@ -12,8 +12,9 @@
 
         <script type="text/javascript">
             window.onload = function() {
+                document.getElementById("y").innerHTML = "yikes";
                 window.addEventListener('devicemotion', (event) => {
-                    document.getElementById("x").innerHTML = "x:" + event.acceleration.x + "";
+                    document.getElementById("x").innerHTML = event.acceleration.x;
                     document.getElementById("y").innerHTML = "y:" + event.acceleration.y + "";
                     document.getElementById("z").innerHTML = "z:" + event.acceleration.z + "";
                 });
