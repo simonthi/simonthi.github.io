@@ -13,18 +13,30 @@
         <script type="text/javascript">
             window.onload = function() {
 
-                function handleMotionEvent(event) {
 
-                    const x = event.accelerationIncludingGravity.x;
-                    const y = event.accelerationIncludingGravity.y;
-                    const z = event.accelerationIncludingGravity.z;
 
-                    // Do something awesome.
-                    
-                    document.getElementById("x").innerHTML = ""+x+"";
-                }
+                DeviceMotionEvent.requestPermission()
+                    .then(response => {
+                    if (response == 'granted') {
+                        window.addEventListener('devicemotion', (e) => {
+                            // do something with e
 
-                window.addEventListener("devicemotion", handleMotionEvent, true);
+                            function handleMotionEvent(event) {
+
+                                const x = e.accelerationIncludingGravity.x;
+                                const y = e.accelerationIncludingGravity.y;
+                                const z = e.accelerationIncludingGravity.z;
+
+                                // Do something awesome.
+
+                                document.getElementById("x").innerHTML = ""+x+"";
+                            }
+                            window.addEventListener("devicemotion", handleMotionEvent, true);
+                        })
+                    }
+                })
+                    .catch(console.error)
+
 
                 document.getElementById("y").innerHTML = "yikes";
                 window.ondevicemotion = function(event) {
