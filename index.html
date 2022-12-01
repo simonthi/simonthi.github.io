@@ -15,7 +15,7 @@
                 document.getElementById("y").innerHTML = "yikes";
                 window.addEventListener('devicemotion', (event) => {
                     document.getElementById("x").innerHTML = event.acceleration.x;
-                    document.getElementById("y").innerHTML = "y:" + event.acceleration.y + "";
+                    document.getElementById("y").innerHTML = "y:" + `${event.acceleration.x} m/s2` + "";
                     document.getElementById("z").innerHTML = "z:" + event.acceleration.z + "";
                 });
             }
