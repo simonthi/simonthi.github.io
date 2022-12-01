@@ -23,17 +23,19 @@
             <div>
                 <h1>The Noordzij Cube in 3D</h1>
                 <p>Finnaly, the backside of the Noordzij cube is visible. Have a look around. Play with the layers, the orientation of the e’s and spin the cube in all directions. Have fun!
-                <br><br>
+                    <br><br>
                     Made by <a href="https://simonthiefes.de" target="_blank">Simon Thiefes</a> for the students @HAW Hamburg with input of Pierre Pané-Farré. 
                 </p>
             </div>
         </div>
 
-        
+
         <script type="text/javascript">
-            
-            
-            
+
+            window.addEventListener('devicemotion', (event) => {
+                console.log(`${event.acceleration.x} m/s2`);
+            });
+
 
 
             var canvas = document.getElementById("canvas");
@@ -241,7 +243,7 @@
                 selectBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
                 selectBox.left = "12px";
                 selectBox.bottom = "24px";
-                
+
 
                 advancedTexture.addControl(selectBox);
                 var style = advancedTexture.createStyle();
@@ -256,7 +258,7 @@
                 selectBox.style = style;
 
 
-                
+
                 var transformGroup = new BABYLON.GUI.CheckboxGroup("Toggle layers");
                 transformGroup.addCheckbox(" 1", toggleLayer1, true);
                 transformGroup.selectors[0].color = "lightblue";
@@ -271,7 +273,7 @@
                 transformGroup.style = style;
                 transformGroup.thickness = 0;
 
-              
+
 
                 var extremesGroup = new BABYLON.GUI.CheckboxGroup("Show only extremes");
                 extremesGroup.addCheckbox(" On/Off", showExtremes);
@@ -288,18 +290,18 @@
                 selectBox.addGroup(extremesGroup);
                 selectBox.thickness = 0;
                 selectBox.barHeight = 0;
-                
+
                 var cameraBox = new BABYLON.GUI.SelectionPanel("cp");
                 cameraBox.width = "360px";
                 cameraBox.height = "204px";
                 cameraBox.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
                 cameraBox.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
-                
+
                 cameraBox.style = style;
                 cameraBox.thickness = 0;
-                
+
                 advancedTexture.addControl(cameraBox);
-                
+
                 var text1 = new BABYLON.GUI.TextBlock();
                 text1.text = "Camera controls";
                 text1.top = "24px";
@@ -307,7 +309,7 @@
                 text1.height = "36px";
                 text1.verticalAlignment = 0;
                 text1.thickness = 0;
-                
+
                 var camButton1 = BABYLON.GUI.Button.CreateSimpleButton(showExtremes, "Front");
                 camButton1.height = "50px";
                 camButton1.width = "180px";
@@ -319,8 +321,8 @@
                     camera.setPosition(new BABYLON.Vector3(-4, 4, 14));
                 });
                 camButton1.thickness = 0;
-                
-                
+
+
                 var camButton2 = BABYLON.GUI.Button.CreateSimpleButton(showExtremes, "Back");
                 camButton2.height = "50px";
                 camButton2.width = "180px";
@@ -332,7 +334,7 @@
                     camera.setPosition(new BABYLON.Vector3(-4, 4, -22));
                 });
                 camButton2.thickness = 0;
-                
+
                 var camButton3 = BABYLON.GUI.Button.CreateSimpleButton(showExtremes, "Left");
                 camButton3.height = "50px";
                 camButton3.width = "180px";
@@ -344,7 +346,7 @@
                     camera.setPosition(new BABYLON.Vector3(14, 4, -4));
                 });
                 camButton3.thickness = 0;
-                
+
                 var camButton4 = BABYLON.GUI.Button.CreateSimpleButton(showExtremes, "Right");
                 camButton4.height = "50px";
                 camButton4.width = "180px";
@@ -356,7 +358,7 @@
                     camera.setPosition(new BABYLON.Vector3(-22, 4, -4));
                 });
                 camButton4.thickness = 0;
-                
+
                 var camButton5 = BABYLON.GUI.Button.CreateSimpleButton(showExtremes, "Reset");
                 camButton5.top = "164px";
                 camButton5.height = "50px";
@@ -367,19 +369,19 @@
                     camera.setPosition(new BABYLON.Vector3(10, 20, 10));
                 });
                 camButton5.thickness = 0;
-                
+
                 cameraBox.addControl(text1);
                 cameraBox.addControl(camButton1);
                 cameraBox.addControl(camButton2);
                 cameraBox.addControl(camButton3);
                 cameraBox.addControl(camButton4);
                 cameraBox.addControl(camButton5);
-                
+
 
                 return scene;
             }
 
-            
+
 
 
             // here the doc for Load function: //doc.babylonjs.com/api/classes/babylon.sceneloader#load
@@ -398,8 +400,8 @@
                 });
             }
             document.fonts.ready.then(function(font_face_set) {
-            start();
-});
+                start();
+            });
 
 
             window.addEventListener("resize", function () {
