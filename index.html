@@ -33,7 +33,7 @@
                                 document.getElementById("y").innerHTML = ""+y+"";
                                 document.getElementById("z").innerHTML = ""+z+"";
                             }
-                            window.addEventListener("devicemotion", handleMotionEvent, true);
+                            window.addEventListener("devicemotion", function(){setTimeout(handleMotionEvent, 2000)}, true);
                         })
                     }
                 })
