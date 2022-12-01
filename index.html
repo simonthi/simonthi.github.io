@@ -6,16 +6,16 @@
     </head>
 
     <body>
-<div id="x"></div>
-<div id="y"></div>
-<div id="z"></div>
+<div id="x">x</div>
+<div id="y">y</div>
+<div id="z">z</div>
 
         <script type="text/javascript">
             console.log("Hi"+\n+"");
             window.addEventListener('devicemotion', (event) => {
-                document.getElementById.innerHTML = "x:" + event.acceleration.x + "";
-                document.getElementById.innerHTML = "y:" + event.acceleration.y + "";
-                document.getElementById.innerHTML = "z:" + event.acceleration.z + "";
+                document.getElementById("x").innerHTML = "x:" + event.acceleration.x + "";
+                document.getElementById("y").innerHTML = "y:" + event.acceleration.y + "";
+                document.getElementById("z").innerHTML = "z:" + event.acceleration.z + "";
             });
         </script>
     </body>
