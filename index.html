@@ -12,12 +12,26 @@
 
         <script type="text/javascript">
             window.onload = function() {
+
+                function handleMotionEvent(event) {
+
+                    const x = event.accelerationIncludingGravity.x;
+                    const y = event.accelerationIncludingGravity.y;
+                    const z = event.accelerationIncludingGravity.z;
+
+                    // Do something awesome.
+                    
+                    document.getElementById("x").innerHTML = ""+x+"";
+                }
+
+                window.addEventListener("devicemotion", handleMotionEvent, true);
+
                 document.getElementById("y").innerHTML = "yikes";
-                window.addEventListener('devicemotion', (event) => {
+                window.ondevicemotion = function(event) {
                     document.getElementById("x").innerHTML = event.acceleration.x;
                     document.getElementById("y").innerHTML = "y:" + `${event.acceleration.x} m/s2` + "";
                     document.getElementById("z").innerHTML = "z:" + event.acceleration.z + "";
-                });
+                };
             }
         </script>
     </body>
