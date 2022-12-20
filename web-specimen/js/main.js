@@ -73,9 +73,9 @@ function  run(){
                     const beta = e.beta;
                     const gamma = e.gamma;
                     if (beta < 45) {
-                        $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/3)+",'VROT'"+((45-beta)/3)+"");
+                        $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((45-beta)/1)+"");
                     } else {
-                        $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/3)+",'VROT'"+((beta-45)/-3)+"");
+                        $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
                     }
                 });
             }
@@ -86,9 +86,9 @@ function  run(){
             const beta = e.beta;
             const gamma = e.gamma;
             if (beta < 45) {
-                $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/3)+",'VROT'"+((45-beta)/3)+"");
+                $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((45-beta)/1)+"");
             } else {
-                $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/3)+",'VROT'"+((beta-45)/-3)+"");
+                $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
             }
         });
     }
