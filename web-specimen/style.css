@@ -173,6 +173,7 @@ div:focus {
 
 #id11{
     text-underline-offset: 24px;
+    font-size: 720px;
 }
 
 
@@ -353,7 +354,7 @@ div:focus {
         padding-bottom: 16px;
     }
     #id11{
-        font-size: 180px;
+        font-size: 140px;
     }
 }
 
