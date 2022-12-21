@@ -6,6 +6,7 @@ window.onload = function() {
     if (accessGrant == true)   {
         $(".overlay").css( "display", "none");
     }
+    startup();
     document.body.addEventListener("mousemove", (event) => {
         if (event.x >= width/2){
             if (event.y >= height/2){
@@ -67,7 +68,7 @@ function colorize() {
 }
 
 function  run(){
-    
+
     $(".overlay").css( "display", "none");
 
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
@@ -102,5 +103,36 @@ function  run(){
 
 
 function  startup(){
-    $(".overlay").css( "display", "none");
+
+    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+            .then(permissionState => {
+            if (permissionState === 'granted') {
+                $(".overlay").css( "display", "none");
+                window.addEventListener('deviceorientation', (e) => {
+                    const beta = e.beta;
+                    const gamma = e.gamma;
+                    if (beta < 45) {
+                        $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((45-beta)/1)+"");
+                    } else {
+                        $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
+                    }
+                    accessGrant = true;
+                });
+            }
+        })
+            .catch(console.error);
+    } else {
+        $(".overlay").css( "display", "none");
+        window.addEventListener('deviceorientation', (e) => {
+            const beta = e.beta;
+            const gamma = e.gamma;
+            if (beta < 45) {
+                $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((45-beta)/1)+"");
+            } else {
+                $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
+            }
+        });
+    }
+
 }
