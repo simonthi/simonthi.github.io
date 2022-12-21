@@ -6,7 +6,9 @@ window.onload = function() {
     if (accessGrant == true)   {
         $(".overlay").css( "display", "none");
     }
-    startup();
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+        startup();
+    }
     document.body.addEventListener("mousemove", (event) => {
         if (event.x >= width/2){
             if (event.y >= height/2){
@@ -38,7 +40,7 @@ window.onload = function() {
 }
 
 
-var colors = ['#ffcc7a', '#29ffb8', '#c2c0c0', '#ff00ff', '#cc7550', '#ff00f7', '#00fff2', '#0040ff', '#ff9900', '#c79154', '#2fc475', '#63e05c', '#63e05c'];
+var colors = ['#ffcc7a', '#29ffb8', '#ff5a36', '#ffba00', '#cc7550', '#ff00f7', '#00b7eb', '#0040ff', '#ff9900', '#c79154', '#2fc475', '#32cd32', '#63e05c'];
 
 function randomize(values) {
     let index = values.length,  randomIndex;
