@@ -1,6 +1,11 @@
+var accessGrant;
+
 window.onload = function() {
     var width = window.screen.width;
     var height = window.screen.height;
+    if (accessGrant == true)   {
+        $(".overlay").css( "display", "none");
+    }
     document.body.addEventListener("mousemove", (event) => {
         if (event.x >= width/2){
             if (event.y >= height/2){
@@ -55,14 +60,14 @@ function randomize(values) {
 
 
 function colorize() {
-    for(i = 0; i < 12; i++) {
+    for(i = 0; i < 13; i++) {
         $("#id"+i+"").css( "color", ""+colors[i]+"");
         $("#id"+i+"").css( "border-color", ""+colors[i]+"");
     }
 }
 
-
 function  run(){
+    
     $(".overlay").css( "display", "none");
 
     if (typeof DeviceOrientationEvent.requestPermission === 'function') {
@@ -77,6 +82,7 @@ function  run(){
                     } else {
                         $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
                     }
+                    accessGrant = true;
                 });
             }
         })
@@ -92,4 +98,9 @@ function  run(){
             }
         });
     }
+}
+
+
+function  startup(){
+    $(".overlay").css( "display", "none");
 }
