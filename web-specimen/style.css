@@ -145,6 +145,7 @@ div:focus {
     left: 0;
 }
 
+
 .hrot-30 {
     display: inline-block;
     font-variation-settings: 'HROT' 30, 'VROT' 0;
@@ -168,6 +169,10 @@ div:focus {
 .break {
     overflow-wrap: anywhere;
     line-height: 0.94;
+}
+
+#id11{
+    text-underline-offset: 24px;
 }
 
 
@@ -206,6 +211,9 @@ div:focus {
         line-height: 0.8;
         letter-spacing: 0.05em;
     }
+    #id11{
+        font-size: 500px;
+    }
 }
 
 @media only screen and (max-width: 1080px) {
@@ -242,6 +250,9 @@ div:focus {
     .sample-5 {
         padding-bottom: 24px;
     }
+    #id11{
+        font-size: 440px;
+    }
 }
 
 @media only screen and (max-width: 960px) {
@@ -271,6 +282,9 @@ div:focus {
 
     .sample-5 {
         font-size: 24px;
+    }
+    #id11{
+        font-size: 256px;
     }
 }
 
@@ -303,7 +317,9 @@ div:focus {
     .sample-5 {
         font-size: 24px;
     }
-
+    #id11{
+        font-size: 196px;
+    }
 }
 
 @media only screen and (max-width: 440px) {
@@ -335,6 +351,9 @@ div:focus {
 
     .sample-5 {
         padding-bottom: 16px;
+    }
+    #id11{
+        font-size: 180px;
     }
 }
 
