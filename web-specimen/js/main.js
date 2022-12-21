@@ -80,8 +80,10 @@ function  run(){
                     const gamma = e.gamma;
                     if (beta < 45) {
                         $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((45-beta)/1)+"");
+                        $("#id2").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT' 0");
                     } else {
                         $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
+                        $("#id2").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT' 0");
                     }
                     accessGrant = true;
                 });
@@ -94,8 +96,10 @@ function  run(){
             const gamma = e.gamma;
             if (beta < 45) {
                 $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((45-beta)/1)+"");
+                $("#id2").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT' 0");
             } else {
                 $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
+                $("#id2").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT' 0");
             }
         });
     }
@@ -114,8 +118,10 @@ function  startup(){
                     const gamma = e.gamma;
                     if (beta < 45) {
                         $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((45-beta)/1)+"");
+                        $("#id2").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT' 0");
                     } else {
                         $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
+                        $("#id2").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT' 0");
                     }
                     accessGrant = true;
                 });
@@ -129,8 +135,10 @@ function  startup(){
             const gamma = e.gamma;
             if (beta < 45) {
                 $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((45-beta)/1)+"");
+                $("#id2").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT' 0");
             } else {
                 $("#id1").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT'"+((beta-45)/-1)+"");
+                $("#id2").css( "font-variation-settings", "'HROT'"+(gamma/1.5)+",'VROT' 0");
             }
         });
     }
