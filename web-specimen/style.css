@@ -33,6 +33,7 @@ h1 {
 a{
     color: inherit;
     text-decoration-thickness: 2px;
+    text-decoration: none;
 }
 
 div:focus {
@@ -106,7 +107,7 @@ div:focus {
     padding-top: 14px;
     font-family: octagon;
     font-size: 98px;
-    line-height: 0.78;
+    line-height: 0.64;
     letter-spacing: 0.02em;
     text-align: center;
     width: 100%;
@@ -171,9 +172,12 @@ div:focus {
     line-height: 0.94;
 }
 
+#id10{
+    line-height: 0.56;
+}
 #id11{
-    text-underline-offset: 24px;
-    font-size: 720px;
+    border-top: 2px solid;
+    text-decoration: none;
 }
 
 
@@ -203,7 +207,7 @@ div:focus {
 
     .sample-4 {
         font-size: 72px;
-        line-height: 0.76;
+        line-height: 0.66;
         letter-spacing: 0.04em;
     }
 
@@ -211,9 +215,6 @@ div:focus {
         font-size: 36px;
         line-height: 0.8;
         letter-spacing: 0.05em;
-    }
-    #id11{
-        font-size: 500px;
     }
 }
 
@@ -251,9 +252,6 @@ div:focus {
     .sample-5 {
         padding-bottom: 24px;
     }
-    #id11{
-        font-size: 440px;
-    }
 }
 
 @media only screen and (max-width: 960px) {
@@ -283,9 +281,6 @@ div:focus {
 
     .sample-5 {
         font-size: 24px;
-    }
-    #id11{
-        font-size: 256px;
     }
 }
 
@@ -318,9 +313,6 @@ div:focus {
     .sample-5 {
         font-size: 24px;
     }
-    #id11{
-        font-size: 196px;
-    }
 }
 
 @media only screen and (max-width: 440px) {
@@ -352,9 +344,6 @@ div:focus {
 
     .sample-5 {
         padding-bottom: 16px;
-    }
-    #id11{
-        font-size: 140px;
     }
 }
 
