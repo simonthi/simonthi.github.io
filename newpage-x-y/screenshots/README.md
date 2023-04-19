@@ -1,0 +1,1 @@
+Permanently moved to [https://haw-type-design.github.io/newpage-x-y/screenshots](https://haw-type-design.github.io/newpage-x-y/screenshots)
